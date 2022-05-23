@@ -14,15 +14,15 @@ public class EWarehouseTableUtil {
     public static ObservableList<Warehouse> getWarehouseList() {
         ObservableList<Warehouse> ret = FXCollections.<Warehouse>observableArrayList();
         Connection c = AMainDBConn.connect();
-        String sql = "SELECT * FROM warehouse;";
+        String sql = "SELECT * FROM nakazeni;";
         try (Statement st = c.createStatement()) {
             ResultSet rs = st.executeQuery(sql);
             int cnt = 0;
-            while(rs.next()) {
+            while (rs.next()) {
                 System.out.println(cnt++);
                 //System.out.format("id:%d, name: %s, c:%d%n", rs.getInt("id"), rs.getString("name"), rs.getInt("capacity"));
                 //System.out.println(new Warehouse(rs.getInt("id"), rs.getString("name"), rs.getInt("capacity")).toString());
-                ret.add(new Warehouse(rs.getInt("id"), rs.getString("name"), rs.getInt("capacity")));
+                ret.add(new Warehouse(rs.getInt("id"), rs.getString("datum"), rs.getInt("vek"), rs.getString("mf"), rs.getString("kraj"), rs.getString("okres"), rs.getBoolean("vZahranici"), rs.getString("stat"), rs.getBoolean("reportovanoKhs")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -40,15 +40,15 @@ public class EWarehouseTableUtil {
 
     /* Returns Name TableColumn */
     public static TableColumn<Warehouse, String> getNameColumn() {
-        TableColumn<Warehouse, String> fNameCol = new TableColumn<>("name");
-        fNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        TableColumn<Warehouse, String> fNameCol = new TableColumn<>("datum");
+        fNameCol.setCellValueFactory(new PropertyValueFactory<>("datum"));
         return fNameCol;
     }
 
     /* Returns Last Name TableColumn */
     public static TableColumn<Warehouse, String> getCapacityColumn() {
-        TableColumn<Warehouse, String> lastNameCol = new TableColumn<>("capacity");
-        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("capacity"));
+        TableColumn<Warehouse, String> lastNameCol = new TableColumn<>("vek");
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("vek"));
         return lastNameCol;
     }
 

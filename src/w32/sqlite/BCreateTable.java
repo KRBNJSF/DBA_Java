@@ -13,19 +13,26 @@ public class BCreateTable {
             c = AMainDBConn.connect();
             System.out.println("Database Opened...\n");
             stmt = c.createStatement();
-            String sql = "CREATE TABLE IF NOT EXISTS warehouse " +
+            String sql = "CREATE TABLE IF NOT EXISTS nakazeni " +
                     "(id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    " name TEXT NOT NULL, " +
-                    " capacity INT NOT NULL) ";
+                    " datum TEXT NOT NULL, " +
+                    " vek INT NOT NULL, " +
+                    "mf VARCHAR NOT NULL," +
+                    "kraj VARCHAR NOT NULL," +
+                    "okres VARCHAR NOT NULL," +
+                    "vZahranici bit NOT NULL," +
+                    "stat varchar NOT NULL," +
+                    "reportovanoKhs bit NOT NULL ) ";
             stmt.executeUpdate(sql);
             stmt.close();
             c.close();
-        } catch ( Exception e ) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
         System.out.println("Table Product Created Successfully!!!");
     }
+
     public static void main(String[] args) {
         BCreateTable cr = new BCreateTable();
         cr.createTable();
