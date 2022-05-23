@@ -22,18 +22,18 @@ public class Warehouse {
             new SimpleStringProperty(this, "kraj", null);
     private final StringProperty okres =
             new SimpleStringProperty(this, "okres", null);
-    private final BooleanProperty vZahranici =
-            new SimpleBooleanProperty(this, "vZahranice", false);
+    private final IntegerProperty vZahranici =
+            new SimpleIntegerProperty(this, "vZahranice", 0);
     private final StringProperty stat =
             new SimpleStringProperty(this, "stat", null);
-    private final BooleanProperty reportovanoKhs =
-            new SimpleBooleanProperty(this, "reportovanoKhs", false);
+    private final IntegerProperty reportovanoKhs =
+            new SimpleIntegerProperty(this, "reportovanoKhs", 0);
 
     // Keeps track of last generated person id
     //private static AtomicInteger idSequence = new AtomicInteger(0);
 
 
-    public Warehouse(int id, String datum, int vek, String mf, String kraj, String okres, boolean vZahranici, String stat, boolean reportovanoKhs) {
+    public Warehouse(int id, String datum, int vek, String mf, String kraj, String okres, int vZahranici, String stat, int reportovanoKhs) {
         this.id.set(id);
         this.datum.set(datum);
         this.vek.set(vek);
@@ -119,16 +119,28 @@ public class Warehouse {
         this.okres.set(okres);
     }
 
-    public boolean isvZahranici() {
+    public int getvZahranici() {
         return vZahranici.get();
     }
 
-    public BooleanProperty vZahraniciProperty() {
+    public IntegerProperty vZahraniciProperty() {
         return vZahranici;
     }
 
-    public void setvZahranici(boolean vZahranici) {
+    public void setvZahranici(int vZahranici) {
         this.vZahranici.set(vZahranici);
+    }
+
+    public int getReportovanoKhs() {
+        return reportovanoKhs.get();
+    }
+
+    public IntegerProperty reportovanoKhsProperty() {
+        return reportovanoKhs;
+    }
+
+    public void setReportovanoKhs(int reportovanoKhs) {
+        this.reportovanoKhs.set(reportovanoKhs);
     }
 
     public String getStat() {
@@ -143,17 +155,6 @@ public class Warehouse {
         this.stat.set(stat);
     }
 
-    public boolean isReportovanoKhs() {
-        return reportovanoKhs.get();
-    }
-
-    public BooleanProperty reportovanoKhsProperty() {
-        return reportovanoKhs;
-    }
-
-    public void setReportovanoKhs(boolean reportovanoKhs) {
-        this.reportovanoKhs.set(reportovanoKhs);
-    }
 
     /* Domain specific business rules */
     public boolean isValidWarehouse(List<String> errorList) {

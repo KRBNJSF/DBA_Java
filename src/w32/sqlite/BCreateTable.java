@@ -13,16 +13,16 @@ public class BCreateTable {
             c = AMainDBConn.connect();
             System.out.println("Database Opened...\n");
             stmt = c.createStatement();
-            String sql = "CREATE TABLE IF NOT EXISTS nakazeni " +
-                    "(id INTEGER PRIMARY KEY AUTOINCREMENT," +
+            String sql = "CREATE TABLE IF NOT EXISTS nakazeni5 " +
+                    "(id TEXT NOT NULL," +
                     " datum TEXT NOT NULL, " +
                     " vek INT NOT NULL, " +
                     "mf VARCHAR NOT NULL," +
                     "kraj VARCHAR NOT NULL," +
                     "okres VARCHAR NOT NULL," +
-                    "vZahranici bit NOT NULL," +
-                    "stat varchar NOT NULL," +
-                    "reportovanoKhs bit NOT NULL ) ";
+                    "vZahranici BIT," +
+                    "stat VARCHAR," +
+                    "reportovanoKhs BIT) ";
             stmt.executeUpdate(sql);
             stmt.close();
             c.close();

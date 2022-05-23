@@ -24,8 +24,15 @@ public class DShowData extends Application {
 
         // Add columns to the TableView
         table.getColumns().addAll(EWarehouseTableUtil.getIdColumn(),
-                EWarehouseTableUtil.getNameColumn(),
-                EWarehouseTableUtil.getCapacityColumn());
+                EWarehouseTableUtil.getIdColumn(),
+                EWarehouseTableUtil.getDatumColumn(),
+                EWarehouseTableUtil.getVekColumn(),
+                EWarehouseTableUtil.getmfColumn(),
+                EWarehouseTableUtil.getKrajColumn(),
+                EWarehouseTableUtil.getOkresColumn(),
+                EWarehouseTableUtil.getVZahraniciColumn(),
+                EWarehouseTableUtil.getStatColumn(),
+                EWarehouseTableUtil.getReportovanoKshColumn());
         VBox root = new VBox(table);
         root.setStyle("-fx-padding: 10;" +
                 "-fx-border-style: solid inside;" +

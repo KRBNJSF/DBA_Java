@@ -11,6 +11,7 @@ import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Objects;
 
 /**
  * Struktura tabulky:
@@ -19,8 +20,8 @@ import java.sql.SQLException;
  */
 public class FUkol {
 
-    public static void insert(String id, String datum, int vek, String mf, String kraj, String okres, Boolean vZahranici, String stat, Boolean reportovanoKhs) {
-        String sql = "INSERT INTO nakazeni(id, datum, vek, mf, " +
+    public static void insert(String id, String datum, int vek, String mf, String kraj, String okres, int vZahranici, String stat, int reportovanoKhs) {
+        String sql = "INSERT INTO nakazeni5(id, datum, vek, mf, " +
                 "kraj, okres, vZahranici, stat, reportovanoKhs) VALUES(?, ?, ?, ?, ?, ? , ? ,?, ?)";
 
 
@@ -32,9 +33,9 @@ public class FUkol {
             pstmt.setString(4, mf);
             pstmt.setString(5, kraj);
             pstmt.setString(6, okres);
-            pstmt.setBoolean(7, vZahranici);
+            pstmt.setInt(7, vZahranici);
             pstmt.setString(8, stat);
-            pstmt.setBoolean(8, reportovanoKhs);
+            pstmt.setInt(9, reportovanoKhs);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -44,7 +45,7 @@ public class FUkol {
     public static void main(String[] args) throws IOException {
         FileReader fr = null;
         String radka;
-        fr = new FileReader("R:\\soukrome\\PRO\\prehled.csv");
+        fr = new FileReader("X:\\stemberk\\verejne_zaci\\osoby.csv");
         BufferedReader br = new BufferedReader(fr);
         br.readLine(); // prvni radku zahodime;
 
@@ -57,9 +58,9 @@ public class FUkol {
             String mf = "";
             String kraj = "";
             String okres = "";
-            Boolean vZahranici = false;
+            int vZahranici = 0;
             String stat = "";
-            Boolean reportovanoKhs = false;
+            int reportovanoKhs = 0;
             if (cnt > 0) {
                 String[] hodnoty = radka.split(",");
                 if (hodnoty.length > 0) id = hodnoty[0];
@@ -68,14 +69,19 @@ public class FUkol {
                 if (hodnoty.length > 3) mf = hodnoty[3];
                 if (hodnoty.length > 4) kraj = hodnoty[4];
                 if (hodnoty.length > 5) okres = hodnoty[5];
-                if (hodnoty.length > 6) vZahranici = Boolean.parseBoolean(hodnoty[6]);
-                if (hodnoty.length > 7) stat = hodnoty[5];
-                if (hodnoty.length > 8) reportovanoKhs = Boolean.parseBoolean(hodnoty[6]);
-                System.out.format("%s, %s, %d, %s, %s, %s, %b, %s, %b%n",
+                if (hodnoty.length > 6) vZahranici = bolda(hodnoty[6]);
+                if (hodnoty.length > 7) stat = hodnoty[7];
+                if (hodnoty.length > 8) reportovanoKhs = bolda(hodnoty[8]);
+                System.out.format("%s, %s, %d, %s, %s, %s, %s, %s, %s%n",
                         id, datum, vek, mf, kraj, okres, vZahranici, stat, reportovanoKhs);
                 insert(id, datum, vek, mf, kraj, okres, vZahranici, stat, reportovanoKhs);
             }
-            if (cnt++ > 10) break;
+            if (cnt++ > 100) break;
         }
+    }
+
+    public static int bolda(String bol) {
+        if (Objects.equals(bol, "true")) return 1;
+        else return 0;
     }
 }
